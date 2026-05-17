@@ -15,7 +15,7 @@ jobs:
           webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
           webhook-type: incoming-webhook
           payload: |
-            text: "Staging Pipeline wurde gestartet von ${{github.actor}}. Pipeline : ${{github.workflow}}"
+            text: "Production Pipeline wurde gestartet von ${{github.actor}}. Pipeline : ${{github.workflow}}"
 
       - name: checkout
         uses: actions/checkout@v6
