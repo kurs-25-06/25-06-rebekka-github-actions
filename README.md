@@ -20,10 +20,11 @@
 - SSH Access for Github Actions
   - create SSH keypairs for staging and production separately
   - configure as Github Actions secret both for staging and production
+    - we are using repository secrets for this
   - copy staging pubkey to staging ec2 instance (.ssh/authorized_keys)
-    - `ssh-copy-id -i gh_deploy_staging -o IdentityFile=~/.ssh/gh_actions.pem ubuntu@<staging-ip>`
+  - `ssh-copy-id -i gh_deploy_staging -o IdentityFile=~/.ssh/gh_actions.pem ubuntu@<staging-ip>`
   - copy production pubkey to production ec2 instance (.ssh/authorized_keys)
-    - `ssh-copy-id -i gh_deploy_prod -o IdentityFile=~/.ssh/gh_actions.pem ubuntu@<prod-ip>`
+  - `ssh-copy-id -i gh_deploy_prod -o IdentityFile=~/.ssh/gh_actions.pem ubuntu@<prod-ip>`
 - Create Slack APP
   - create incoming webhook
   - add new webhook (bottom of page)
