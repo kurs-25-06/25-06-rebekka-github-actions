@@ -24,4 +24,8 @@
     - `ssh-copy-id -i gh_deploy_staging -o IdentityFile=~/.ssh/gh_actions.pem ubuntu@<staging-ip>`
   - copy production pubkey to production ec2 instance (.ssh/authorized_keys)
     - `ssh-copy-id -i gh_deploy_prod -o IdentityFile=~/.ssh/gh_actions.pem ubuntu@<prod-ip>`
-  
+- Create Slack APP
+  - create incoming webhook
+  - add new webhook (bottom of page)
+  - assign channel to application (space is set by default to techstarter)
+  - add webhook_url to github action secrets
