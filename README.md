@@ -1,2 +1,27 @@
-# 25-06-github-actions-example
-Hallo zweite Zeile
+# 25-06-Rebekka-Github-Actions
+
+## Prepare EC2 Instances
+- 1x staging
+- 1x production
+- OS: Ubuntu 26.04 LTS
+- Instance Type: t2.micro
+- 8GB ssd
+- Security Group:
+  - Allow SSH from developer machine
+  - Allow HTTP/S from Github Actions
+    -  correct would be to use the ip list from here: https://api.github.com/meta - this is too much work for now so allow any source ip
+  - Allow HTTP/S from anywhere
+- SSH Access for Developer
+  - create SSH keypair
+  - download from AWS
+  - on developer machine
+    - move to ~/.ssh/gh_actions
+    - chmod 600
+- SSH Access for Github Actions
+  - create SSH keypairs for staging and production separately
+  - configure as Github Actions secret both for staging and production
+  - copy staging pubkey to staging ec2 instance (.ssh/authorized_keys)
+    - `ssh-copy-id -i gh_deploy_staging -o IdentityFile=~/.ssh/gh_actions.pem ubuntu@<staging-ip>`
+  - copy production pubkey to production ec2 instance (.ssh/authorized_keys)
+    - `ssh-copy-id -i gh_deploy_prod -o IdentityFile=~/.ssh/gh_actions.pem ubuntu@<prod-ip>`
+  

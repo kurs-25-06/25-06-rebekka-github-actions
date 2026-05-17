@@ -24,18 +24,18 @@ jobs:
       - name: ssh setup
         run: |
           mkdir -p ~/.ssh
-          echo "${{secrets.SSH_PRIVATE_KEY}}" > ~/.ssh/deploy_key
-          chmod 400 ~/.ssh/deploy_key
+          echo "${{secrets.SSH_PRIVATE_KEY_STAGING}}" > ~/.ssh/deploy_key_staging
+          chmod 400 ~/.ssh/deploy_key_staging
           ssh-keyscan -H ${{secrets.EC2_IP}}  >> ~/.ssh/known_hosts
 
       - name: install nginx
         run: |
-          ssh -i ~/.ssh/deploy_key ubuntu@${{secrets.EC2_IP}} "sudo apt update && sudo apt install nginx -y"
+          ssh -i ~/.ssh/deploy_key_staging ubuntu@${{secrets.EC2_IP}} "sudo apt update && sudo apt install nginx -y"
 
       - name: deploy website
         run: |
-          scp -i ~/.ssh/deploy_key frontend/index.html ubuntu@${{secrets.EC2_IP}}:/home/ubuntu/index.html
-          ssh -i ~/.ssh/deploy_key ubuntu@${{secrets.EC2_IP}} "sudo cp /home/ubuntu/index.html /var/www/html/index.html"
+          scp -i ~/.ssh/deploy_key_staging frontend/index.html ubuntu@${{secrets.EC2_IP}}:/home/ubuntu/index.html
+          ssh -i ~/.ssh/deploy_key_staging ubuntu@${{secrets.EC2_IP}} "sudo cp /home/ubuntu/index.html /var/www/html/index.html"
 
       - name: Post a message in a channel bei Erfolg!
         if: ${{ success() }}
